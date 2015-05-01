@@ -6,3 +6,9 @@ $app->get('/', function () use ($app) {
     $hello = $oStuff->setStuff();
     $app->render('index.html', array('hello' => $hello));
 });
+
+$app->get('/about',function () use ($app){
+
+    echo "about";
+
+});
