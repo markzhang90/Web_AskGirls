@@ -1,0 +1,22 @@
+{
+    "name":"yiyuanzhang/ag",
+    "type":"framework",
+    "keywords":["microframework", "rest", "router", "mvc"],
+    "license":"MIT",
+    "authors":[
+        {
+            "name":"yiyuanzhang"
+        }
+    ],
+    "require":{
+        "php":">=5.3.0",
+        "slim/slim":"2.*",
+        "slim/views":"0.1.*",
+        "twig/twig":"1.*"
+    },
+    "autoload":{
+        "psr-0":{
+            "": ""
+        }
+    }
+}
