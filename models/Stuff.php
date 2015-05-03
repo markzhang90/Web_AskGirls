@@ -9,14 +9,14 @@ class Stuff {
 	protected $core;
 
 	function __construct() {
-		//$this->core = \lib\Core::getInstance();
+		$this->core = \lib\Core::getInstance();
 	}
 	
 	// Get all stuff
 	public function getAllStuff() {
 		$r = array();		
 
-		$sql = "SELECT * FROM stuff";
+		$sql = "SELECT * FROM user";
 		$stmt = $this->core->dbh->prepare($sql);		
 
 		if ($stmt->execute()) {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="css/header-style.css"/>
+    <link rel="stylesheet" href="css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="css/all-menu.css" />
+
+
+    {% block head %}
+
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+
+<body class="cbp-spmenu-push">
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <h3>Menu</h3>
+    <a id="menu0"  href="#">All Posts</a>
+    <a id="menu1"  href="#">Meeting Girls</a>
+    <a id="menu2"  href="#">Hanging Out</a>
+    <a id="menu3"  href="#">Dating</a>
+    <a id="menu4"  href="#">Engage</a>
+    <a id="menu5"  href="#">Marriage</a>
+</nav>
+<div class="container">
+    <div class="cbp-af-header pinned">
+        <div class="cbp-af-inner">
+            <h1>Ask Girls</h1>
+            <nav>
+                <a id="showLeftPush" href="#">Posts</a>
+                <a href="#">用户</a>
+                <a href="#">短消息</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </div>
+    <header class="clearfix"></header>
+</div>
+<div class="main">{% block content %}{% endblock %}</div>
+<div id="footer">
+    {% block footer %}
+    &copy; Copyright 2015 by <a href="http://www.markgogogo.com">Yiyuan Zhang</a>.
+    {% endblock %}
+</div>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/jquery.pin.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.min.js"></script>
+<script src="js/menu-click.js"></script>
+
+
+
+</body>
+</html>

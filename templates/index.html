@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-        "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-    <title>Page title</title>
-</head>
-<body>
-    <h1>{{ hello }}</h1>
-    <li><a href="/Web_AskGirls/public/about">About</a></li>
-</body>
-</html>
+{% extends "main.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Index</h1>
+{% for user in users%}
+<p>{{ user.user_name }}</p>
+<p>{{ user.user_email }}</p>
+{% endfor %}
+{% endblock %}

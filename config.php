@@ -3,11 +3,11 @@
 use lib\Config;
 
 // DB Config
-Config::write('db.host', 'localhost');
-Config::write('db.port', '');
-Config::write('db.basename', 'AskGilrs');
-Config::write('db.user', 'root');
-Config::write('db.password', '');
+Config::write('db.host', '50.87.248.112');
+Config::write('db.port', '3306');
+Config::write('db.basename', 'xiaoruir_askgirls');
+Config::write('db.user', 'xiaoruir_mark');
+Config::write('db.password', 'Zyy45612301');
 
 // Project Config
 Config::write('path', 'http://localhost/Web_AskGirls/');

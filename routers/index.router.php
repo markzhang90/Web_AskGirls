@@ -3,12 +3,13 @@
 // GET index route
 $app->get('/', function () use ($app) {
     $oStuff = new models\Stuff();
-    $hello = $oStuff->setStuff();
-    $app->render('index.html', array('hello' => $hello));
+    $users = $oStuff->getAllStuff();
+//    print_r($users);
+    $app->render('index.html', array('users' => $users));
 });
 
 $app->get('/about',function () use ($app){
 
-    echo "about";
+    $app->render('main.html');
 
 });
