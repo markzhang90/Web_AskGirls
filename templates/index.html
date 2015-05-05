@@ -1,11 +1,24 @@
 {% extends "main.html" %}
+{% block rel %}
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap.css"/>
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css"/>
 
+{% endblock %}
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<h1>Index</h1>
-{% for user in users%}
-<p>{{ user.user_name }}</p>
-<p>{{ user.user_email }}</p>
+{% for post in posts%}
+<div class="media">
+    <div class="media-left media-top">
+        <a href="#">
+            <img class="media-object" src="{{post.icon_image}}" alt="...">
+        </a>
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading">{{post.user_nickname}}</h4>
+        {{post.title}}
+    </div>
+</div>
+
 {% endfor %}
 {% endblock %}

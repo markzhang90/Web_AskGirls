@@ -22,7 +22,7 @@ class User {
 	public function getUsers() {
 		$r = array();		
 
-		$sql = "SELECT * FROM evnt_usuario";
+		$sql = "SELECT * FROM user";
 		$stmt = $this->core->dbh->prepare($sql);
 		//$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 
