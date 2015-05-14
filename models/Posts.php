@@ -20,7 +20,7 @@ class Posts {
 
     // Get all stuff
     public function getAllPosts($options, $pageNum) {
-        $page_Size = 8;
+        $page_Size = 1;
 
         if($options == 0){
             $sql = "SELECT pid from publishes";

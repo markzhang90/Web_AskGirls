@@ -5,20 +5,72 @@
 
 {% endblock %}
 {% block title %}Index{% endblock %}
-
+{% block menu %}
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <h3>Menu</h3>
+    <a id="menu0"  href="{{ urlFor('index', {'option': 0 , 'page': 1}) }}">All Posts</a>
+    <a id="menu1"  href="{{ urlFor('index', {'option': 1 , 'page': 1}) }}">Meeting Girls</a>
+    <a id="menu2"  href="{{ urlFor('index', {'option': 2 , 'page': 1}) }}">Hanging Out</a>
+    <a id="menu3"  href="{{ urlFor('index', {'option': 3 , 'page': 1}) }}">Dating</a>
+    <a id="menu4"  href="{{ urlFor('index', {'option': 4 , 'page': 1}) }}">Engage</a>
+    <a id="menu5"  href="{{ urlFor('index', {'option': 5 , 'page': 1}) }}">Marriage</a>
+</nav>
+{% endblock %}
 {% block content %}
+<div class="row container">
+    <div class="col-md-2"></div>
+    <div class="col-md-9">
 {% for post in posts%}
-<div class="media">
-    <div class="media-left media-top">
-        <a href="#">
-            <img class="media-object" src="{{post.icon_image}}" alt="...">
-        </a>
+        <h1 class="page-header"></h1>
+        <div class="row">
+            <div class="col-md-2"><img class="img-circle" src="{{post.icon_image}}"></div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8"> <h4 class="">{{post.user_nickname}} </h4></div>
+                    <div class="col-md-4"> <h4 class="">
+                        <button class="btn btn-primary col-md-offset-5" type="button">
+                            Replied <span class="badge">{{post.ct}}</span>
+                        </button></h4></div>
+                </div>
+                <blockquote>
+                <p>{{post.title}}</p>
+                </blockquote>
+
+
+            </div>
+
+        </div>
+
+{% endfor %}
+        <h1 class="page-header"></h1>
     </div>
-    <div class="media-body">
-        <h4 class="media-heading">{{post.user_nickname}}</h4>
-        {{post.title}}
+</div>
+<div class="container row">
+    <div class="col-md-2"></div>
+    <div class="col-md-9">
+        <nav>
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a href="{{ urlFor('index', {'option': option , 'page': 1}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in startpage..endpage %}
+                {% if i == page  %}
+                    <li class="active" ><a href="#">{{ i }}<span class="sr-only">(current)</span></a></li>
+                {% else %}
+                    <li><a href="{{ urlFor('index', {'option':option,'page':i}) }}">{{i}}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li>
+                    <a href="{{ urlFor('index', {'option':option,'page':totalpage}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
-{% endfor %}
 {% endblock %}

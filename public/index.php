@@ -11,7 +11,13 @@ $app = new \Slim\Slim(array(
     'view' => $twigView,
     'templates.path' => '../templates/',
 ));
-
+$app->hook('slim.before', function () use ($app) {
+    $app->view()->appendData(array('baseUrl' => 'Web_AskGirls/public/'));
+});
+$view = $app->view();
+$view->parserExtensions = array(
+    new \Slim\Views\TwigExtension()
+);
 // Automatically load router files
 $routers = glob('../routers/*.router.php');
 //require '../routers/index.router.php';
