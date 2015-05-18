@@ -1,0 +1,36 @@
+{% extends "log_base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>AskGirls Welcome <small>Login Page</small></h1>
+</div>
+<div class="row center">
+    <div class="col-md-6">
+        {% if error != null %}
+        {{ error }}
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <div id="loginform">
+        <form method="post" action="{{ urlFor('checkuser')}}">
+            <h1>Login Form</h1>
+
+            <div>
+                <input type="text" placeholder="Username" required="" id="username" name="username" />
+            </div>
+            <div>
+                <input type="password" placeholder="Password" required="" id="password" name="password" />
+            </div>
+            <div>
+                <input type="submit" value="Log in" />
+                <a href="#">Lost your password?</a>
+
+            </div>
+        </form>
+        <div id="loginbt">
+            <a href="{{ urlFor('register') }}">Register</a>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

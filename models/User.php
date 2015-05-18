@@ -38,7 +38,7 @@ class User {
 	public function getUserById($id) {
 		$r = array();		
 		
-		$sql = "SELECT nombre * evnt_usuario WHERE id=$id";
+		$sql = "SELECT numbre * evnt_usuario WHERE id=$id";
 		$stmt = $this->core->dbh->prepare($sql);
 		//$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 
@@ -51,13 +51,16 @@ class User {
 	}
 
 	// Get user by the Login
-	public function getUserByLogin($email, $pass) {
-		$r = array();		
-		
-		$sql = "SELECT * FROM user WHERE email=:email AND password=:pass";		
+    /**
+     * @param $username
+     * @param $pass
+     * @return array|int
+     */
+    public function getUserByLogin($username, $pass) {
+		$r = array();
+
+		$sql = "SELECT * FROM user WHERE user_name='$username' AND user_passwd='$pass'";
 		$stmt = $this->core->dbh->prepare($sql);
-		$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-		$stmt->bindParam(':pass', $pass, PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 			$r = $stmt->fetchAll(PDO::FETCH_ASSOC);		   	
