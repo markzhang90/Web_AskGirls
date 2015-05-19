@@ -35,7 +35,7 @@ $app->get('/index(/:option/:page)', function ($option = 0, $page = 1) use ($app)
 
     }
 
-    $app->render('index.html', array('posts' => $get_back['posts'], 'startpage' => $start_page, 'endpage' => $end_page, 'page' => $current_page, 'totalpage' => $total_page_db, 'option'=> $options));
+    $app->render('list.html', array('posts' => $get_back['posts'], 'startpage' => $start_page, 'endpage' => $end_page, 'page' => $current_page, 'totalpage' => $total_page_db, 'option'=> $options));
 })->name('index');
 
 $app->get('/about', function () use ($app) {

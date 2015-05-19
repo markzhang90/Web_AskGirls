@@ -8,9 +8,19 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form role="form">
+            <form role="form" method="post"  action="{{ urlFor('register')}}">
                 <h2>Sign Up <small>Enjoy the community.</small></h2>
                 <hr class="colorgraph">
+
+                {% if error['gender'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['gender'] }}
+                </div>
+                {% endif %}
+
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <a href="#" id="boyicon" class="thumbnail">
@@ -22,21 +32,67 @@
                             <img src="images/girl.png">
                         </a>
                     </div>
-                    <input type="hidden" id="gender-pick" value="-1"/>
+                    <input type="hidden" name="gender" id="gender-pick" value="-1"/>
                 </div>
+
+                {% if error['nickname'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['nickname'] }}
+                </div>
+                {% endif %}
+
                 <div class="form-group">
-                    <input type="text" name="display_name" id="user_nickname" class="form-control input-lg" placeholder="Nick Name" tabindex="2">
+                    <input type="text" name="nick_name" id="user_nickname" class="form-control input-lg" placeholder="Nick Name" tabindex="2" value="{{data['nick_name']}}">
                 </div>
+
+
+                {% if error['user_name'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['user_name'] }}
+                </div>
+                {% endif %}
+
+
+
                 <div class="form-group">
-                    <input type="text" name="display_name" id="user_name" class="form-control input-lg" placeholder="Account Name" tabindex="3">
+                    <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Account Name" tabindex="3" value="{{data['user_name']}}">
                 </div>
+
+
+
+                {% if error['email'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['email'] }}
+                </div>
+                {% endif %}
+
+
                 <div class="form-group">
-                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                    <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="{{data['email']}}">
                 </div>
+
+
+
+                {% if error['password'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['password'] }}
+                </div>
+                {% endif %}
+
+
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5" value="{{data['password']}}">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -45,11 +101,25 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                {% if error['checkbox'] %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error['checkbox'] }}
+                </div>
+                {% endif %}
+
+
+
+
                 <div class="row">
                     <div class="col-xs-4 col-sm-3 col-md-3">
 					<span class="button-checkbox">
 						<button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
-                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+                        <input type="checkbox" name="check_rule" id="t_and_c" class="hidden" value="1">
 					</span>
                     </div>
                     <div class="col-xs-8 col-sm-9 col-md-9">
@@ -65,6 +135,7 @@
             </form>
         </div>
     </div>
+    <h1 class="blank-space"></h1>
     <!-- Modal -->
     <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -89,6 +160,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
+
 {% endblock %}
 
 {% block js %}

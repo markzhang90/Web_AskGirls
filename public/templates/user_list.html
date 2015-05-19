@@ -1,0 +1,81 @@
+{% extends "user_base.html" %}
+{% block rel %}
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap.css"/>
+<link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css"/>
+<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="../../css/default.css"/>
+<link rel="stylesheet" href="../../css/header-style.css"/>
+<link rel="stylesheet" href="../../css/user.css"/>
+<link rel="stylesheet" href="../../css/footer.css"/>
+{% endblock %}
+{% block content %}
+<div class="row container">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <div class= "sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="{{ urlFor('user') }}">Overview</a></li>
+                {% if option == "mylist" %}
+                <li class="active"><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied</a></li>
+                {% endif %}
+                {% if option == "myreply" %}
+                <li><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post</a></li>
+                <li class="active"><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied <span class="sr-only">(current)</span></a></li>
+                {% endif %}
+                <li><a href="#">Setting</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8">
+        {% for post in posts%}
+
+        <div class="row">
+            <div class="col-md-2"><img class="img-circle" src="{{post.icon_image}}"></div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8"> <h4 class="">{{post.user_nickname}} </h4></div>
+                    <div class="col-md-4"> <h4 class="">
+                        <button class="btn btn-primary col-md-offset-5" type="button">
+                            Replied <span class="badge">{{post.ct}}</span>
+                        </button></h4></div>
+                </div>
+                <blockquote>
+                    <p>{{post.title}}</p>
+                </blockquote>
+
+
+            </div>
+
+        </div>
+        <h1 class="page-header"></h1>
+        {% endfor %}
+
+        <nav>
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a href="{{ urlFor('userlist', {'option': option , 'page': 1}) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in startpage..endpage %}
+                {% if i == page  %}
+                <li class="active" ><a href="#">{{ i }}<span class="sr-only">(current)</span></a></li>
+                {% else %}
+                <li><a href="{{ urlFor('userlist', {'option':option,'page':i}) }}">{{i}}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li>
+                    <a href="{{ urlFor('userlist', {'option':option,'page':totalpage}) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="blank-space"></div>
+
+{% endblock %}

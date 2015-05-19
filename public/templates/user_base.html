@@ -3,11 +3,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../../css/header-style.css"/>
-    <link rel="stylesheet" href="../../css/default.css"/>
-    <link rel="stylesheet" type="text/css" href="../../css/all-menu.css" />
-    <link rel="stylesheet" href="../../css/customized.css"/>
-    <link rel="stylesheet" href="../../css/footer.css"/>
+
+
     {% block rel %}
     {% endblock %}
 
@@ -17,16 +14,16 @@
     {% endblock %}
 </head>
 
-<body class="cbp-spmenu-push">
+<body>
 {% block menu %}
 
 {% endblock %}
 <div class="container-header">
-    <div class="cbp-af-header pinned">
+    <div class="cbp-af-header cbp-af-header-shrink">
         <div class="cbp-af-inner">
             <h1>Ask Girls</h1>
             <nav>
-                <a id="showLeftPush" href="#">Posts</a>
+                <a href="{{ urlFor('index', {'option': 0 , 'page': 1}) }}">Posts</a>
                 <a href="{{ urlFor('user') }}">User</a>
                 <a href="#">Message</a>
                 <a href="#">Contact</a>
@@ -41,11 +38,9 @@
         <p class="text-muted">Place sticky footer content here.</p>
     </div>
 </footer>
-<script src="../../js/jquery-1.8.2.min.js"></script>
-<script src="../../js/jquery.pin.js"></script>
-<script src="../../js/classie.js"></script>
-<script src="../../js/cbpAnimatedHeader.min.js"></script>
-<script src="../../js/menu-click.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.pin.js"></script>
 
 
 

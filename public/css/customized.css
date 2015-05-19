@@ -233,3 +233,8 @@
     background-image: -o-linear-gradient(left, #c4e17f, #e4b4ab 87.5%, #e4343a);
     background-image: linear-gradient(to right, #c4e17f, #e4b4ab 87.5%, #e4343a);
 }
+.blank-space{
+    padding-bottom: 70px;
+}
+
+

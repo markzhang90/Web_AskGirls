@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="css/header-style.css"/>
     <link rel="stylesheet" href="css/default.css"/>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
-    <!--<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>-->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="css/customized.css"/>
+    <link rel="stylesheet" href="css/footer.css"/>
 
     {% block head %}
 
@@ -18,11 +19,12 @@
 
 <body>
 <div class="main">{% block content %}{% endblock %}</div>
-<div id="footer">
-    {% block footer %}
-    &copy; Copyright 2015 by <a href="http://www.markgogogo.com">Yiyuan Zhang</a>.
-    {% endblock %}
-</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+</footer>
 
 <!--<script src="js/bootstrap.js"></script>-->
 {% block js %}{% endblock %}

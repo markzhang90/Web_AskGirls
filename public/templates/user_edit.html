@@ -1,0 +1,29 @@
+{% extends "user_base.html" %}
+{% block rel %}
+<link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/default.css"/>
+<link rel="stylesheet" href="css/header-style.css"/>
+<link rel="stylesheet" href="css/user.css"/>
+<link rel="stylesheet" href="css/footer.css"/>
+{% endblock %}
+{% block content %}
+<div class="row container">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <div class= "sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="{{ urlFor('user') }}">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post</a></li>
+                <li><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied</a></li>
+                <li><a href="#">Setting</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8"></div>
+</div>
+
+<div class="blank-space"></div>
+
+{% endblock %}
