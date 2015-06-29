@@ -219,5 +219,10 @@ class Posts {
         return $result_array;
     }
 
+    public function addCommentToPost(){
+
+
+
+    }
 
 }
