@@ -33,14 +33,14 @@
     <header class="clearfix"></header>
 </div>
 <div class="main">{% block content %}{% endblock %}</div>
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-    </div>
-</footer>
+{% include 'footer.html' %}
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.pin.js"></script>
+<script src="js/tooltip/jquery-ui.min.js"></script>
+
+{% block js %}{% endblock %}
+
 
 
 

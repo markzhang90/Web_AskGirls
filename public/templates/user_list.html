@@ -23,7 +23,7 @@
                 <li><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post</a></li>
                 <li class="active"><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied <span class="sr-only">(current)</span></a></li>
                 {% endif %}
-                <li><a href="#">Setting</a></li>
+                <li><a href="{{ urlFor('useredit') }}">Setting</a></li>
             </ul>
         </div>
     </div>
@@ -51,7 +51,7 @@
         </div>
         <h1 class="page-header"></h1>
         {% endfor %}
-
+        {% if startpage <= endpage %}
         <nav>
             <ul class="pagination pagination-lg">
                 <li>
@@ -73,6 +73,13 @@
                 </li>
             </ul>
         </nav>
+        {% else %}
+        <div class="alert alert-info alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fa fa-coffee"></i>
+            <strong>Have not got records</strong>
+        </div>
+        {% endif %}
     </div>
 </div>
 

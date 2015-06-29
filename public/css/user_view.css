@@ -1,0 +1,68 @@
+.backborder {
+
+    /*background-color: rgba(50, 165, 242, 0.47);*/
+}
+
+.backborder h1{
+    color: #111;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.userblock {
+    margin-left: 10px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -ms-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -o-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+
+}
+
+.userblock img{
+    margin: 15px;
+}
+
+.dashblcok {
+    margin-left: 10px;
+}
+
+.smallblcok {
+    background-color: #fff;
+    margin-right: 19px;
+    -webkit-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -ms-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    -o-box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 0 #a49f95, 0 1px 5px rgba(0,0,0,0.4);
+
+}
+
+.smallblcok img{
+    display: block;
+    padding: 5%;
+    margin: auto;
+}
+
+.header{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #47a3da;
+}
+
+.content{
+    margin-top: 20%;
+    margin-bottom: 30%;
+    width: 100%;
+    color: #bbc3c8;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 70px;
+    line-height: 22px;
+}

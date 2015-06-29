@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/header-style.css"/>
 <link rel="stylesheet" href="css/user.css"/>
 <link rel="stylesheet" href="css/footer.css"/>
+<link rel="stylesheet" href="css/user_edit.css"/>
 {% endblock %}
 {% block content %}
 <div class="row container">
@@ -14,16 +15,103 @@
     <div class="col-md-3">
         <div class= "sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="{{ urlFor('user') }}">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ urlFor('user') }}">Overview</a></li>
                 <li><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post</a></li>
                 <li><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied</a></li>
-                <li><a href="#">Setting</a></li>
+                <li class="active"><a href="{{ urlFor('useredit') }}">Setting <span class="sr-only">(current)</span></a></li>
             </ul>
         </div>
     </div>
-    <div class="col-md-8"></div>
+        <div class="col-md-8">
+            <!-- left column -->
+            <div class="row">
+
+                <!-- edit form column -->
+                <div class="personal-info">
+
+                    <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        <strong>Username Gender Email</strong> can not be changed.
+                    </div>
+                    <div id="message_field">
+                        {% if error %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-coffee"></i>
+                            <strong>Oh snap! </strong>{{ error }}
+                        </div>
+                        {% endif %}
+                        {% if success %}
+                        <div class="alert alert-success alert-dismissable">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-coffee"></i>
+                            <strong>Well Done! </strong>{{ success }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+
+                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ urlFor('useredit') }}">
+                        <div class="row">
+                            <h3 class="page-header">Personal info</h3>
+
+                            <div class="text-center">
+                                <img src="{{ user['icon_image'] }}" class="avatar img-circle img-thumbnail" alt="avatar">
+                                <h5><span class="label label-info">Upload a different photo</span></h5>
+                                <input type="file" name="foo" class="text-center center-block well well-sm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Nick name:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" id="user_nickname" name="user_nickname" value="{{ user['user_nickname'] }}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Email:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" value="{{ user['user_email'] }}" type="text" readonly
+                                       data-toggle="popover" data-trigger="focus" data-placement="top" data-content="identifier to get back your account">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Username:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" value="{{ user['user_name'] }}" type="text" readonly
+                                       data-toggle="popover" data-trigger="focus" data-placement="top" data-content="login name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Password:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" id="user_passwd" name="user_passwd" value="{{ user['user_passwd'] }}" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Confirm password:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" value="" name="confirm_pw" id="confirm_pw" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input class="btn btn-primary" value="Save Changes" id="submit" type="submit">
+                                <span></span>
+                                <input class="btn btn-default" value="Reset" type="reset">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
 </div>
 
 <div class="blank-space"></div>
 
+
 {% endblock %}
+{% block js %}<script src="js/user_edit.js"></script>{% endblock %}

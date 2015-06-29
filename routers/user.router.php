@@ -1,26 +1,119 @@
 <?php
 
 // Get user
-$app->get('/user', function () use ($app) {	
+$app->get('/user', function () use ($app) {
 
-    if(isset($_SESSION['user_id'])){
-        $app->render('user_edit.html');
-    }else{
+    if (isset($_SESSION['user_id'])) {
+        $app->redirect('userview');
+    } else {
         $app->redirect('login');
     }
 })->name('user');
 
 
-$app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
-    if(isset($_SESSION['user_id'])){
-        $get_user = new models\Posts();
-        if($option == 'mylist'){
-            $getlist = $get_user->getPostById($_SESSION['user_id'], 0,$page);
-//            var_dump($getlist);
-        }else if($option == 'myreply'){
-            $getlist = $get_user->getPostById($_SESSION['user_id'], 1,$page);
-//            var_dump($getlist);
+$app->get('/userview', function () use ($app) {
+
+    if (isset($_SESSION['user_id'])) {
+        $get_user = new models\User();
+        $get_post = new models\Posts();
+        $user_info = $get_user->getUserInfor($_SESSION['user_id'])[0];
+        $num_post = $get_post->getNumPostByUid($_SESSION['user_id'])[0];
+        $num_reply = $get_post->getNumCommentByUid($_SESSION['user_id'])[0];
+//        var_dump($num_reply);
+        $app->render('user_view.html', array('infor' => $user_info, 'post_num' => $num_post, 'reply_num' => $num_reply));
+    } else {
+        $app->redirect('login');
+    }
+})->name('userview');
+
+
+$app->post('/useredit', function () use ($app) {
+
+//    var_dump($_FILES['foo']["size"]);
+    if (isset($_SESSION['user_name'])) {
+        if ($_FILES['foo']["size"] != 0) {
+            $storage = new Upload\Storage\FileSystem('../image/', true);
+            $file = new \Upload\File('foo', $storage);
+// Optionally you can rename the file on upload
+            $new_filename = $_SESSION['user_name'];
+            $file->setName($new_filename);
+            $file->setExtension();
+// Validate file upload
+// MimeType List => http://www.webmaster-toolkit.com/mime-types.shtml
+            $file->addValidations(array(
+                // Ensure file is of type "image/png"
+                new \Upload\Validation\Mimetype(array('image/png', 'image/jpeg', 'image/jpg')),
+                //You can also add multi mimetype validation
+                // Ensure file is no larger than 5M (use "B", "K", M", or "G")
+                new Upload\Validation\Size('1M')
+            ));
+// Access data about the file that has been uploaded
+            $data = array(
+                'name' => $file->getNameWithExtension(),
+                'extension' => $file->getExtension(),
+                'mime' => $file->getMimetype(),
+                'size' => $file->getSize(),
+
+            );
+// Try to upload file
+            try {
+//                var_dump($data);
+                // Success!
+                $file->upload();
+            } catch (\Exception $e) {
+                // Fail!
+                $errors = $file->getErrors();
+                var_dump($errors);
+            }
+        }
+        $user =  new models\User();
+        $data = $app->request()->post();
+        $result = $user->updateUser($data, $_SESSION['user_id']);
+        if($result){
+            $app->flash('correct', "Successfully Updated");
+            $app->redirect('useredit');
         }else{
+            $app->flash('error', "Update Failed");
+            $app->redirect('useredit');
+        }
+
+    } else {
+        $app->redirect('login');
+    }
+});
+
+$app->get('/useredit', function () use ($app) {
+
+    if (isset($_SESSION['user_id'])) {
+        $get_user = new models\User();
+        $user_info = $get_user->getUserInfor($_SESSION['user_id'])[0];
+        if (isset($_SESSION['slim.flash']['error'])) {
+            $error_value = $_SESSION['slim.flash']['error'];
+        }else{
+            $error_value = null;
+        }
+        if (isset($_SESSION['slim.flash']['correct'])) {
+            $correct = $_SESSION['slim.flash']['correct'];
+        }else{
+            $correct = null;
+        }
+        $app->render('user_edit.html', array('user' => $user_info, 'error'=>$error_value, 'success'=>$correct));
+    } else {
+        $app->redirect('login');
+    }
+})->name('useredit');
+
+
+$app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
+    if (isset($_SESSION['user_id'])) {
+        $get_user = new models\Posts();
+        if ($option == 'mylist') {
+            $getlist = $get_user->getPostById($_SESSION['user_id'], 0, $page);
+//            var_dump($getlist);
+        } else if ($option == 'myreply') {
+            $getlist = $get_user->getPostById($_SESSION['user_id'], 1, $page);
+//            var_dump($getlist);
+        } else {
             $app->redirect('user_edit.html');
         }
         $current_page = $getlist['pageNum'];
@@ -51,43 +144,10 @@ $app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
             }
 
         }
-        $app->render('user_list.html', array('posts' => $getlist['posts'], 'startpage' => $start_page, 'endpage' => $end_page, 'page' => $current_page, 'totalpage' => $total_page_db, 'option'=>$option));
+        $app->render('user_list.html', array('posts' => $getlist['posts'], 'startpage' => $start_page, 'endpage' => $end_page, 'page' => $current_page, 'totalpage' => $total_page_db, 'option' => $option));
 
-    }else{
+    } else {
         $app->redirect('login');
     }
 })->name('userlist');
 
-////Create user
-//$app->post('/user', function () use ($app) {
-//	//var_dump($app->request()->post('data'));
-//	$user = json_decode($app->request()->post('data'), true);
-//	$user['password'] = hash("sha1", $user['password']);
-//	$oUser = new User ();
-//	echo $oUser->insertUser($user);
-//});
-//
-//// LOGIN GET user by email and passwordS
-//$app->post('/login', function () use ($app) {
-//	//var_dump($app->request()->post('data'));
-//	$data = json_decode($app->request()->post('data'), true);
-//
-//	//echo $data['password'];
-//	$email = $data['email'];
-//	$pass = hash("sha1", $data['password']);
-//	//echo "  despues: ".$pass. "   ";
-//
-//	$oUser = new User();
-//
-//	echo json_encode($oUser->getUserByLogin($email, $pass), true);
-//});
-//
-//// PUT route
-//$app->put('/user', function () {
-//	echo 'This is a PUT route';
-//});
-//
-//// DELETE route
-//$app->delete('/user', function () {
-//    echo 'This is a DELETE route';
-//});

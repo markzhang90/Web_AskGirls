@@ -34,6 +34,7 @@ $app->post('/checkuser', function () use($app) {
 
     if($result != null){
         $_SESSION['user_id'] = $result[0]['user_id'];
+        $_SESSION['user_name'] = $result[0]['user_name'];
         $_SESSION['user_nickname'] = $result[0]['user_nickname'];
         if (isset($_SESSION['user_id'])) {
             $app->redirect('index/0/1');
@@ -98,7 +99,7 @@ $app->post('/register', function () use($app) {
     }
 
     if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,12}$/', $data['password'])) {
-        $error_list['password'] = "the password does not meet the requirements! At least one letter and over at least 6 digits";
+        $error_list['password'] = "the password does not meet the requirements! At least one letter and at least 6 digits";
     }else if($data['password'] != $data['password_confirmation']){
         $error_list['password'] = "Password Does Not MATCH";
     }

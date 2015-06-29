@@ -1,0 +1,66 @@
+{% extends "user_base.html" %}
+{% block rel %}
+<link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/default.css"/>
+<link rel="stylesheet" href="css/header-style.css"/>
+<link rel="stylesheet" href="css/user.css"/>
+<link rel="stylesheet" href="css/footer.css"/>
+<link rel="stylesheet" href="css/user_view.css"/>
+{% endblock %}
+{% block content %}
+<div class="row container">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <div class= "sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="{{ urlFor('user') }}">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ urlFor('userlist', {'option':'mylist','page':1}) }}">My Post</a></li>
+                <li><a href="{{ urlFor('userlist', {'option':'myreply','page':1}) }}">My Replied</a></li>
+                <li><a href="{{ urlFor('useredit') }}">Setting</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8 backborder">
+        <div class="row userblock">
+            <div class="col-xs-12 col-md-3 ">
+                <a href="#" id="user_avator" >
+                    <img class="img-circle" src="{{ infor['icon_image'] }}">
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-md-8">
+                <h1>Welcome {{ infor['user_nickname'] }}</h1>
+                <h3>{{ infor['user_email'] }}</h3>
+            </div>
+        </div>
+
+        <div class="row dashblcok">
+            <div class="col-xs-12 col-md-4 smallblcok">
+                <div class="header"><h1>Post</h1></div>
+                <div class="content"> {{ post_num['count(*)'] }}</div>
+            </div>
+
+            <div class="col-xs-12 col-md-4 smallblcok">
+                <div class="header"><h1>Replied</h1></div>
+                <div class="content"> {{ reply_num['count(*)'] }} </div>
+            </div>
+
+            <div class="col-xs-12 col-md-3 smallblcok">
+                <div class="header"><h1>Gender</h1></div>
+                <a href="#" id="user_avator3" class="img-circle">
+                    {% if infor['gender'] == 1 %}
+                    <img src="images/boy.png">
+                    {% else %}
+                    <img src="images/girl.png">
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="blank-space"></div>
+
+{% endblock %}

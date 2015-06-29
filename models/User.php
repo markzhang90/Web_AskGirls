@@ -34,21 +34,6 @@ class User {
 		return $r;
 	}
 
-	// Get user by the Id
-	public function getUserById($id) {
-		$r = array();		
-		
-		$sql = "SELECT numbre * evnt_usuario WHERE id=$id";
-		$stmt = $this->core->dbh->prepare($sql);
-		//$stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-
-		if ($stmt->execute()) {
-			$r = $stmt->fetchAll(PDO::FETCH_ASSOC);		   	
-		} else {
-			$r = 0;
-		}		
-		return $r;
-	}
 
 	// Get user by the Login
     /**
@@ -63,33 +48,105 @@ class User {
 		$stmt = $this->core->dbh->prepare($sql);
 
 		if ($stmt->execute()) {
-			$r = $stmt->fetchAll(PDO::FETCH_ASSOC);		   	
+			$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		} else {
 			$r = 0;
 		}		
 		return $r;
 	}
 
-	// Insert a new user
+    // Get user info
+    public function getUserInfor($id) {
+        $r = array();
+
+        $sql = "SELECT * FROM user WHERE user_id = '$id'";
+        $stmt = $this->core->dbh->prepare($sql);
+
+        if ($stmt->execute()) {
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $r = NULL;
+        }
+
+        return $r;
+    }
+
+
+    // Insert a new user
 	public function insertUser($data) {
+        $nickname = $data['nick_name'];
+        $username = $data['user_name'];
+        $gender = $data['gender'];
+        $email = $data['email'];
+        $password = $data['password'];
 		try {
-			$sql = "INSERT INTO user (name, email, password, role) 
-					VALUES (:name, :email, :password, :role)";
+			$sql = "INSERT INTO user (user_nickname, user_name, gender, user_passwd, user_email)
+					VALUES ('$nickname', '$username','$gender', '$password','$email')";
 			$stmt = $this->core->dbh->prepare($sql);
 			if ($stmt->execute($data)) {
-				return $this->core->dbh->lastInsertId();;
+				return $this->core->dbh->lastInsertId();
 			} else {
 				return '0';
 			}
 		} catch(PDOException $e) {
         	return $e->getMessage();
     	}
-		
+
 	}
 
+
+    public function checkUserByUsername($data)
+    {
+        try {
+            $sql = "SELECT * FROM user WHERE user_name='$data'";
+            $stmt = $this->core->dbh->prepare($sql);
+            $stmt->execute();
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($r) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }catch(PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function checkUserByEmail($data)
+    {
+        try {
+            $sql = "SELECT * FROM user WHERE user_email='$data'";
+            $stmt = $this->core->dbh->prepare($sql);
+            $stmt->execute();
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($r) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }catch(PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
 	// Update the data of an user
-	public function updateUser($data) {
-		
+	public function updateUser($data, $user_id) {
+        $nickname = $data['user_nickname'];
+        $passwd = $data['user_passwd'];
+        try {
+            $sql = "UPDATE user SET user_nickname='$nickname', user_passwd='$passwd' WHERE user_id='$user_id'";
+            $stmt = $this->core->dbh->prepare($sql);
+            if ( $stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch(PDOException $e) {
+            $e->getMessage();
+            return false;
+        }
 	}
 
 	// Delete user
