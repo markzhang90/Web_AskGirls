@@ -15,11 +15,17 @@ $app->get('/post/:post_id', function ($post_id) use ($app) {
 })->name('post');
 
 $app->post('/post/:post_id', function ($post_id) use ($app) {
-
-    $data = $app->request()->post();
-
-    echo(var_dump($data['comment']));
-    echo($post_id);
-
+    if (isset($_SESSION['user_id'])) {
+        $data = $app->request()->post();
+        $oPosts = new models\Posts();
+        $post_result = $oPosts ->addCommentToPost($data['comment'], $post_id, $_SESSION['user_id']);
+        if($post_result){
+            $app->urlFor('post', array('post_id' => $post_id));
+        }else{
+            echo "Failed";
+        }
+    }else{
+        $app->redirect('login');
+    }
 
 });

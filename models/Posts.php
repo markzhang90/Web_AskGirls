@@ -40,6 +40,23 @@ class Posts {
         return $r;
     }
 
+    public function addNewPost($post_data, $user_id){
+        $title = $post_data['title'];
+        $area = $post_data['area'];
+        $content = $post_data['content'];
+        try {
+            $query = "INSERT INTO publishes (user_id,area_id,title, content) VALUES ( '$user_id', '$area', '$title', '$content')";
+            $stmt = $this->core->dbh->prepare($query);
+            if ($stmt->execute()) {
+                return True;
+            } else {
+                return False;
+            }
+        } catch(PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
     // Get all stuff
     public function getAllPosts($options, $pageNum) {
         $page_Size = 5;
@@ -219,10 +236,21 @@ class Posts {
         return $result_array;
     }
 
-    public function addCommentToPost(){
+    public function addCommentToPost($comment, $post_id, $user_id){
 
-
-
+        try {
+            $query = "INSERT INTO comments (pid,content,user_id) VALUES ( '$post_id', '$comment', '$user_id')";
+            $stmt = $this->core->dbh->prepare($query);
+            if ($stmt->execute()) {
+                return True;
+            } else {
+                return False;
+            }
+        } catch(PDOException $e) {
+            return $e->getMessage();
+        }
     }
+
+
 
 }

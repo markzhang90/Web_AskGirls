@@ -39,7 +39,6 @@ $app->post('/useredit', function () use ($app) {
             $file->setName($new_filename);
             $file->setExtension();
 // Validate file upload
-// MimeType List => http://www.webmaster-toolkit.com/mime-types.shtml
             $file->addValidations(array(
                 // Ensure file is of type "image/png"
                 new \Upload\Validation\Mimetype(array('image/png', 'image/jpeg', 'image/jpg')),
