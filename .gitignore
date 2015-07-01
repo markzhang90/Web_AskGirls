@@ -58,6 +58,7 @@ config.php
 /public/index.php
 /tmp/*
 /logs/*
+/image
 
 # CakePHP 2
 
