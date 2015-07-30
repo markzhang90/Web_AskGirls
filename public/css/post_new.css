@@ -57,6 +57,9 @@ html, body,
 	/*background-color: #00aeef;*/
 	background-image: url(../images/1.jpg);
 }
+#ele_section1 {
+	padding-top: 50px;
+}
 
 #fbsection2 {
 	background-image: url(../images/4.jpg);
