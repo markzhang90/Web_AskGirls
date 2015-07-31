@@ -1,6 +1,6 @@
 /* Set all parents to full height */
 html, body, 
-.container,
+.container-section,
 .cbp-fbscroller,
 .cbp-fbscroller section { 
 	height: 100%; 
@@ -55,14 +55,14 @@ html, body,
 
 #fbsection1 {
 	/*background-color: #00aeef;*/
-	background-image: url(../images/1.jpg);
+	background-image: url(../images/4.jpg);
 }
 #ele_section1 {
 	padding-top: 50px;
 }
 
 #fbsection2 {
-	background-image: url(../images/4.jpg);
+	background-image: url(../images/1.jpg);
 }
 
 #fbsection3 {
@@ -76,4 +76,26 @@ html, body,
 #fbsection5 {
 	background-color: #00aeef;
 }
+.btn.outline {
+	background: none;
+	padding: 12px 22px;
+}
 
+.btn-primary.outline {
+	border: 2px solid #0099cc;
+	color: #0099cc;
+}
+
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+	color: #33a6cc;
+	border-color: #33a6cc;
+}
+.btn-primary.outline:active, .btn-primary.outline.active {
+	border-color: #007299;
+	color: #007299;
+	box-shadow: none;
+}
+
+.center {
+	padding-top: 20%;
+}

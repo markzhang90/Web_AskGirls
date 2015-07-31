@@ -1,0 +1,22 @@
+textarea{
+    min-width:200px;
+    max-width:474px;
+
+
+    max-height:200px;
+}
+
+.btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: initial;
+    transition-delay: initial;
+}
+
+.add-post {
+    margin-left: 30px;
+}
+

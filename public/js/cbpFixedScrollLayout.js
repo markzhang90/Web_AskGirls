@@ -32,7 +32,7 @@ var cbpFixedScrollLayout = (function() {
 		config.$navlinks.on( 'click', function() {
 			scrollAnim( config.$sections.eq( $( this ).index() ).offset().top );
 			return false;
-		} );
+		});
 
 		// 2 waypoints defined:
 		// First one when we scroll down: the current navigation link gets updated. A "new section" is reached when it occupies more than 70% of the viewport

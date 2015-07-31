@@ -153,3 +153,6 @@ $app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
     }
 })->name('userlist');
 
+$app->get('/useraddpost', function () use ($app) {
+    $app->render('user_add_post.html');
+})->name('useraddpost');
