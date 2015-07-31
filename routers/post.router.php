@@ -29,3 +29,7 @@ $app->post('/post/:post_id', function ($post_id) use ($app) {
     }
 
 });
+
+$app->get('/post_new', function () use ($app) {
+    $app->render('post_new.html');
+});

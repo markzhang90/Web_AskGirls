@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" href="css/header-style.css"/>
+    <link rel="stylesheet" href="css/footer.css"/>
+    <script src="js/modernizr.custom.js"></script>
+    {% block head %}
+
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+
+<body>
+<div class="container-header">
+    <div class="cbp-af-header cbp-af-header-shrink">
+        <div class="cbp-af-inner">
+            <h1>Ask Girls</h1>
+            <nav>
+                <a href="{{ urlFor('index', {'option': 0 , 'page': 1}) }}">Posts</a>
+                <a href="{{ urlFor('user') }}">User</a>
+                <a href="#">Message</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div id="cbp-fbscroller" class="cbp-fbscroller">
+            <nav>
+                <a href="#fbsection1" class="cbp-fbcurrent">Section 1</a>
+                <a href="#fbsection2">Section 2</a>
+                <a href="#fbsection3">Section 3</a>
+            </nav>
+
+            <section id="fbsection1"></section>
+            <section id="fbsection2"></section>
+            <section id="fbsection3">
+            </section>
+        </div>
+    </div>
+
+
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/tooltip/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- jquery.easing by http://gsgd.co.uk/ : http://gsgd.co.uk/sandbox/jquery/easing/ -->
+<script src="js/jquery.easing.min.js"></script>
+<!-- waypoints jQuery plugin by http://imakewebthings.com/ : http://imakewebthings.com/jquery-waypoints/ -->
+<script src="js/waypoints.min.js"></script>
+<!-- jquery-smartresize by @louis_remi : https://github.com/louisremi/jquery-smartresize -->
+<script src="js/jquery.debouncedresize.js"></script>
+<script src="js/cbpFixedScrollLayout.min.js"></script>
+<script>
+    $(function() {
+        cbpFixedScrollLayout.init();
+    });
+</script>
+
+
+
+
+</body>
+</html>

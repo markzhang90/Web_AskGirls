@@ -18,8 +18,11 @@ $app->get('/userview', function () use ($app) {
         $get_post = new models\Posts();
         $user_info = $get_user->getUserInfor($_SESSION['user_id'])[0];
         $num_post = $get_post->getNumPostByUid($_SESSION['user_id'])[0];
+        $user_info['user_nickname'] = rawurldecode($user_info['user_nickname']);
+        $user_info['user_email'] = rawurldecode($user_info['user_email']);
+
         $num_reply = $get_post->getNumCommentByUid($_SESSION['user_id'])[0];
-//        var_dump($num_reply);
+//        var_dump($user_info);
         $app->render('user_view.html', array('infor' => $user_info, 'post_num' => $num_post, 'reply_num' => $num_reply));
     } else {
         $app->redirect('login');
