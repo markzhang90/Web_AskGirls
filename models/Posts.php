@@ -42,10 +42,10 @@ class Posts {
 
     public function addNewPost($post_data, $user_id){
         $title = $post_data['title'];
-        $area = $post_data['area'];
+        $area = $post_data['bt-choice'];
         $content = $post_data['content'];
         try {
-            $query = "INSERT INTO publishes (user_id,area_id,title, content) VALUES ( '$user_id', '$area', '$title', '$content')";
+            $query = "INSERT INTO publishes (user_id,areaid,title, content) VALUES ( '$user_id', '$area', '$title', '$content')";
             $stmt = $this->core->dbh->prepare($query);
             if ($stmt->execute()) {
                 return True;

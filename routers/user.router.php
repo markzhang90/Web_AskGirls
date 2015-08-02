@@ -156,3 +156,22 @@ $app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
 $app->get('/useraddpost', function () use ($app) {
     $app->render('user_add_post.html');
 })->name('useraddpost');
+
+$app->post('/useraddpost', function () use ($app) {
+    if (isset($_SESSION['user_id'])) {
+        $data = $app->request()->post();
+        $data['title'] = rawurlencode($data['title']);
+        $data['content'] = rawurlencode($data['content']);
+        $new_post = new models\Posts();
+        $new_post->addNewPost($data, $_SESSION['user_id']);
+        if($new_post){
+            $app->redirect('user_edit');
+        }else{
+            var_dump($new_post);
+        }
+    }else{
+        $app->redirect('login');
+    }
+
+});
+

@@ -13,8 +13,8 @@
     <!--<link rel="stylesheet" href="css/customized.css"/>-->
     <link rel="stylesheet" href="../css/footer.css"/>
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
     {% block head %}
 
     <title>{% block title %}{% endblock %} - My Webpage</title>
@@ -80,7 +80,7 @@
             <div class="well">
                 <h4>Leave a Comment:</h4>
 
-                <form role="form" method="post" action="{{ urlFor('post', {'post_id': post['pid']})}}">
+                <form role="form" method="post" action="{{ urlFor('addcomment', {'post_id': post['pid']} ) }}">
                     <div class="form-group">
                         <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
                     </div>
@@ -154,19 +154,19 @@
         <div class="col-md-4">
 
             <!-- Blog Search Well -->
-            <div class="well">
-                <h4>Blog Search</h4>
+            <!--<div class="well">-->
+                <!--<h4>Blog Search</h4>-->
 
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                </div>
-                <!-- /.input-group -->
-            </div>
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control">-->
+                        <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-default" type="button">-->
+                                <!--<span class="glyphicon glyphicon-search"></span>-->
+                            <!--</button>-->
+                        <!--</span>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.input-group &ndash;&gt;-->
+            <!--</div>-->
 
             <!-- Blog Categories Well -->
             <div class="well">
