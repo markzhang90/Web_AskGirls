@@ -34,7 +34,7 @@
                         </button></h4></div>
                 </div>
                 <blockquote>
-                <a href="{{ urlFor('post', {'post_id': post.pid}) }}"><p>{{post.title}}</p></a>
+                <a href="{{ urlFor('post', {'post_id': post.pid}) }}"><p>{{post.title|nl2br}}</p></a>
                 </blockquote>
 
 
@@ -59,7 +59,7 @@
                 </li>
                 {% for i in startpage..endpage %}
                 {% if i == page  %}
-                    <li class="active" ><a href="#">{{ i }}<szpan class="sr-only">(current)</span></a></li>
+                    <li class="active" ><a href="#">{{ i }}<span class="sr-only">(current)</span></a></li>
                 {% else %}
                     <li><a href="{{ urlFor('index', {'option':option,'page':i}) }}">{{i}}</a></li>
                 {% endif %}

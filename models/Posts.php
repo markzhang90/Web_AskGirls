@@ -197,7 +197,7 @@ class Posts {
 		FROM publishes AS P LEFT JOIN user AS U ON P.user_id = U.user_id WHERE  P.pid = '$post_id'";
         $query_comments = "SELECT C.content, C.row, C.time, C.agree_num, C.disagree_num, U.user_nickname, U.icon_image
                   from publishes as P left join comments as C on P.pid = C.pid left join user as U on C.user_id = U.user_id
-                  where P.pid = '$post_id'";
+                  where P.pid = '$post_id'ORDER BY time DESC ";
         $stmt = $this->core->dbh->prepare($query_comments);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll();

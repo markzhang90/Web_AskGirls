@@ -5,3 +5,9 @@
 .fixed-left{
     padding-left: 20px;
 }
+#media-body-content{
+    max-width: 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}

@@ -6,8 +6,11 @@
  * Time: 18:35
  */
 
-$app->get('/check_session', function () use ($app) {
+$app->post('/load_comments/:post_id', function ($post_id) use ($app) {
 
-    $app->render('main.html');
+    $oPosts = new models\Posts();
+    $post_result = $oPosts ->getMyPostById($post_id);
+    echo var_dump($post_result);
+
 
 });

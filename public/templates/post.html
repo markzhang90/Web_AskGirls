@@ -69,9 +69,9 @@
             {% endif %}
 
             <!-- Post Content -->
-            <p class="lead">{{ post['title'] }}</p>
+            <p class="lead">{{ post['title']|nl2br }}</p>
 
-            <p>{{ post['content'] }}</p>
+            <p>{{ post['content']|nl2br }}</p>
             <hr>
 
             <!-- Blog Comments -->
@@ -80,11 +80,12 @@
             <div class="well">
                 <h4>Leave a Comment:</h4>
 
-                <form role="form" method="post" action="{{ urlFor('addcomment', {'post_id': post['pid']} ) }}">
+                <form role="form" id="comment-form" method="post"
+                      action="{{ urlFor('post', {'post_id': post['pid']} ) }}">
                     <div class="form-group">
                         <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
 
@@ -93,58 +94,80 @@
             <!-- Posted Comments -->
 
             <!-- Comment -->
-            {% if comments[0]['row'] %}
-            {% for comment in comments %}
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object img-circle fixed-image" src="{{ comment['icon_image'] }}" alt="">
-                </a>
-
-                <div class="media-body fixed-left">
-                    <h4 class="media-heading">{{ comment['user_nickname'] }}
-                        <small>{{ comment['time'] }}</small>
-                    </h4>
-                    <blockquote>
-                        {{ comment['content'] }}
-                    </blockquote>
-                </div>
+            {% if comment_msg != null %}
+            {% if comment_msg == 2 %}
+            <div class="alert alert-danger alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                <strong>Oh snap! </strong> Submit Failed
             </div>
-            <hr>
-
-            {% endfor %}
-            {% else %}
-            <p class="lead">No Comments</p>
             {% endif %}
+            {% if comment_msg == 1 %}
+            <div class="alert alert-success alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                <strong>Well Done! </strong> Add comment successfully!
+            </div>
+            {% endif %}
+            {% endif %}
+            <div id="comments-area">
+                {% if comments[0]['time'] %}
+                {% for comment in comments %}
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object img-circle fixed-image" src="{{ comment['icon_image'] }}" alt="">
+                    </a>
 
-            <!-- Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-
-                <div class="media-body">
-                    <h4 class="media-heading">Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
-                    Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-                    vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    <!-- Nested Comment -->
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object" src="http://placehold.it/64x64" alt="">
-                        </a>
-
-                        <div class="media-body">
-                            <h4 class="media-heading">Nested Start Bootstrap
-                                <small>August 25, 2014 at 9:30 PM</small>
-                            </h4>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin
-                            commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
+                    <div class="media-body fixed-left">
+                        <h4 class="media-heading">{{ comment['user_nickname'] }}
+                            <small>{{ comment['time'] }}</small>
+                        </h4>
+                        <blockquote>
+                            <div id="media-body-content">{{ comment['content']|nl2br }}</div>
+                        </blockquote>
                     </div>
-                    <!-- End Nested Comment -->
+                </div>
+
+                <hr>
+
+                {% endfor %}
+                {% else %}
+                <p class="lead">No Comments</p>
+                {% endif %}
+
+                <!-- Comment -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+
+                    <div class="media-body">
+                        <h4 class="media-heading">Start Bootstrap
+                            <small>August 25, 2014 at 9:30 PM</small>
+                        </h4>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin
+                        commodo.
+                        Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
+                        nisi
+                        vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        <!-- Nested Comment -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            </a>
+
+                            <div class="media-body">
+                                <h4 class="media-heading">Nested Start Bootstrap
+                                    <small>August 25, 2014 at 9:30 PM</small>
+                                </h4>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                                sollicitudin
+                                commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
+                                condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            </div>
+                        </div>
+                        <!-- End Nested Comment -->
+                    </div>
                 </div>
             </div>
 
@@ -155,17 +178,17 @@
 
             <!-- Blog Search Well -->
             <!--<div class="well">-->
-                <!--<h4>Blog Search</h4>-->
+            <!--<h4>Blog Search</h4>-->
 
-                <!--<div class="input-group">-->
-                    <!--<input type="text" class="form-control">-->
-                        <!--<span class="input-group-btn">-->
-                            <!--<button class="btn btn-default" type="button">-->
-                                <!--<span class="glyphicon glyphicon-search"></span>-->
-                            <!--</button>-->
-                        <!--</span>-->
-                <!--</div>-->
-                <!--&lt;!&ndash; /.input-group &ndash;&gt;-->
+            <!--<div class="input-group">-->
+            <!--<input type="text" class="form-control">-->
+            <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" type="button">-->
+            <!--<span class="glyphicon glyphicon-search"></span>-->
+            <!--</button>-->
+            <!--</span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.input-group &ndash;&gt;-->
             <!--</div>-->
 
             <!-- Blog Categories Well -->
@@ -222,7 +245,7 @@
 {% include 'footer.html' %}
 <!-- jQuery -->
 <script src="../js/jquery-1.8.2.min.js"></script>
-
+<script src="../js/post.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="../js/bootstrap.min.js"></script>
 

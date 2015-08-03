@@ -7,9 +7,16 @@
  */
 
 $app->get('/post/:post_id', function ($post_id) use ($app) {
+    if (isset($_SESSION['slim.flash']['comment_msg'])) {
+        $comment_msg = $_SESSION['slim.flash']['comment_msg'];
+        $_SESSION['slim.flash']['comment_msg'] = null;
+    }else{
+        $comment_msg = null;
+    }
     $oPosts = new models\Posts();
     $post_result = $oPosts ->getMyPostById($post_id);
-    $app->render('post.html',array('comments' => $post_result['comments'], 'post' => $post_result['post'][0]));
+//    var_dump( $post_result['comments']);
+    $app->render('post.html',array('comments' => $post_result['comments'], 'post' => $post_result['post'][0], 'comment_msg' => $comment_msg));
 
 
 })->name('post');
@@ -17,12 +24,15 @@ $app->get('/post/:post_id', function ($post_id) use ($app) {
 $app->post('/post/:post_id', function ($post_id) use ($app) {
     if (isset($_SESSION['user_id'])) {
         $data = $app->request()->post();
+        $data['comment'] = rawurlencode($data['comment']);
         $oPosts = new models\Posts();
         $post_result = $oPosts ->addCommentToPost($data['comment'], $post_id, $_SESSION['user_id']);
         if($post_result){
-            $app->urlFor('post', array('post_id' => $post_id));
+            $app->flash('comment_msg', 1);
+            $app->redirect($app->urlFor('post', array('post_id' => $post_id)));
         }else{
-            echo "Failed";
+            $app->flash('comment_msg', 0);
+            $app->redirect($app->urlFor('post', array('post_id' => $post_id)));
         }
     }else{
         $app->redirect('login');
@@ -36,6 +46,7 @@ $app->post('/add-comment/:post_id', function($post_id) use ($app){
         $post_instance = new models\Posts();
         echo $post_id;
         var_dump($data);
+        $app->redirect($app->urlFor('post', array('post_id' => 51) ));
     }
     else{
         $app->redirect('login');
