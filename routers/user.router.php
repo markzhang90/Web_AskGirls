@@ -157,6 +157,7 @@ $app->get('/useraddpost', function () use ($app) {
     $app->render('user_add_post.html');
 })->name('useraddpost');
 
+
 $app->post('/useraddpost', function () use ($app) {
     if (isset($_SESSION['user_id'])) {
         $data = $app->request()->post();
@@ -174,4 +175,6 @@ $app->post('/useraddpost', function () use ($app) {
     }
 
 });
+
+
 

@@ -121,3 +121,10 @@ $app->post('/register', function () use($app) {
     }
 
 });
+
+
+$app->get('/logout', function () use ($app) {
+    session_unset();
+    $app->redirect('index/0/1');
+})->name('logout');
+

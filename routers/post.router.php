@@ -16,7 +16,7 @@ $app->get('/post/:post_id', function ($post_id) use ($app) {
     $oPosts = new models\Posts();
     $post_result = $oPosts ->getMyPostById($post_id);
 //    var_dump( $post_result['comments']);
-    $app->render('post.html',array('comments' => $post_result['comments'], 'post' => $post_result['post'][0], 'comment_msg' => $comment_msg));
+    $app->render('post.html',array( 'post' => $post_result['post'][0], 'comment_msg' => $comment_msg));
 
 
 })->name('post');
@@ -35,7 +35,7 @@ $app->post('/post/:post_id', function ($post_id) use ($app) {
             $app->redirect($app->urlFor('post', array('post_id' => $post_id)));
         }
     }else{
-        $app->redirect('login');
+        $app->redirect($app->urlFor('login'));
     }
 
 });

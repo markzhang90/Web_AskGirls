@@ -188,16 +188,24 @@ class Posts {
         }
     }
 
-    public function getMyPostById($post_id){
+    public function getCommentsNumByPid($post_id){
+        $query_count = "SELECT count(*) from comments where pid = '$post_id'";
+        $stmt = $this->core->dbh->prepare($query_count);
+        if ($stmt->execute()) {
+            $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $r = 0;
+        }
+        return $r;
 
-        $result_array = array();
+    }
+    public function getCommentsByPage($post_id, $pageNum, $page_Size){
+        $startPosition = ($pageNum)*$page_Size;
         $comments_list = array();
-        $post_list = array();
-        $query_post = "SELECT U.user_id, U.user_nickname, U.gender, U.icon_image, P.pid, P.title, P.content, P.image_link as ct
-		FROM publishes AS P LEFT JOIN user AS U ON P.user_id = U.user_id WHERE  P.pid = '$post_id'";
+
         $query_comments = "SELECT C.content, C.row, C.time, C.agree_num, C.disagree_num, U.user_nickname, U.icon_image
                   from publishes as P left join comments as C on P.pid = C.pid left join user as U on C.user_id = U.user_id
-                  where P.pid = '$post_id'ORDER BY time DESC ";
+                  where P.pid = '$post_id'ORDER BY time DESC limit $startPosition, $page_Size";
         $stmt = $this->core->dbh->prepare($query_comments);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll();
@@ -211,10 +219,40 @@ class Posts {
                 $list_temp['disagree_num'] = $one_record['disagree_num'];
                 array_push($comments_list, $list_temp);
             }
-            $result_array['comments'] = $comments_list;
+            return $comments_list;
         } else {
-            $result_array['comments'] = null;
+            return null;
         }
+    }
+
+
+    public function getMyPostById($post_id){
+
+        $result_array = array();
+        $comments_list = array();
+        $post_list = array();
+        $query_post = "SELECT U.user_id, U.user_nickname, U.gender, U.icon_image, P.pid, P.title, P.content, P.image_link as ct
+		FROM publishes AS P LEFT JOIN user AS U ON P.user_id = U.user_id WHERE  P.pid = '$post_id'";
+        $query_comments = "SELECT C.content, C.row, C.time, C.agree_num, C.disagree_num, U.user_nickname, U.icon_image
+                  from publishes as P left join comments as C on P.pid = C.pid left join user as U on C.user_id = U.user_id
+                  where P.pid = '$post_id'ORDER BY time DESC ";
+//        $stmt = $this->core->dbh->prepare($query_comments);
+//        if ($stmt->execute()) {
+//            $result = $stmt->fetchAll();
+//            foreach ($result as $one_record){
+//                $list_temp['row'] = $one_record['row'];
+//                $list_temp['content'] = rawurldecode($one_record['content']);
+//                $list_temp['time'] = $one_record['time'];
+//                $list_temp['icon_image'] = rawurldecode($one_record['icon_image']);
+//                $list_temp['agree_num'] = $one_record['agree_num'];
+//                $list_temp['user_nickname'] = rawurldecode($one_record['user_nickname']);
+//                $list_temp['disagree_num'] = $one_record['disagree_num'];
+//                array_push($comments_list, $list_temp);
+//            }
+//            $result_array['comments'] = $comments_list;
+//        } else {
+//            $result_array['comments'] = null;
+//        }
         $stmt = $this->core->dbh->prepare($query_post);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll();
@@ -230,7 +268,7 @@ class Posts {
             }
             $result_array['post'] = $post_list;
         } else {
-            $result_array['comments'] = null;
+            $result_array['post'] = null;
         }
 
         return $result_array;
