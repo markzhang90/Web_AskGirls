@@ -3,7 +3,9 @@
     margin-right: auto;
     width: 70%;
 }
-
+#error_msg {
+    margin-top: 5%;
+}
 #loginform {
     margin-top: 5%;
     margin-bottom: 5%;

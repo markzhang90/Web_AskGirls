@@ -6,7 +6,12 @@
     <div class="row">
         <div class="col-md-6">
             {% if error != null %}
-            {{ error }}
+            <div id="error_msg">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    <strong>{{ error }}</strong>
+                </div>
+            </div>
             {% endif %}
         </div>
         <div class="col-md-6">
