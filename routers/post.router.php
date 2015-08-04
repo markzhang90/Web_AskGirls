@@ -40,17 +40,5 @@ $app->post('/post/:post_id', function ($post_id) use ($app) {
 
 });
 
-$app->post('/add-comment/:post_id', function($post_id) use ($app){
-    if (isset($_SESSION['user_id'])) {
-        $data = $app->request()->post();
-        $post_instance = new models\Posts();
-        echo $post_id;
-        var_dump($data);
-        $app->redirect($app->urlFor('post', array('post_id' => 51) ));
-    }
-    else{
-        $app->redirect('login');
-    }
 
-})->name('addcomment');
 

@@ -30,11 +30,11 @@
             <!-- edit form column -->
             <div class="add-post">
                 <div id="message_field">
-                    {% if error %}
+                    {% if addpostmsg %}
                     <div class="alert alert-danger alert-dismissable">
                         <a class="panel-close close" data-dismiss="alert">×</a>
                         <i class="fa fa-coffee"></i>
-                        <strong>Oh snap! </strong>{{ error }}
+                        <strong>Oh snap! </strong>{{ addpostmsg }}
                     </div>
                     {% endif %}
                 </div>

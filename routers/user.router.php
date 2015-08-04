@@ -154,7 +154,13 @@ $app->get('/list/:option/:page', function ($option, $page = 0) use ($app) {
 })->name('userlist');
 
 $app->get('/useraddpost', function () use ($app) {
-    $app->render('user_add_post.html');
+    if (isset($_SESSION['slim.flash']['useraddpost'])) {
+        $add_post_msg = $_SESSION['slim.flash']['useraddpost'];
+        $_SESSION['slim.flash']['useraddpost'] = null;
+    }else{
+        $add_post_msg = null;
+    }
+    $app->render('user_add_post.html',array( 'addpostmsg' => $add_post_msg));
 })->name('useraddpost');
 
 
@@ -166,9 +172,10 @@ $app->post('/useraddpost', function () use ($app) {
         $new_post = new models\Posts();
         $new_post->addNewPost($data, $_SESSION['user_id']);
         if($new_post){
-            $app->redirect('user_edit');
+            $app->redirect('index/0/1');
         }else{
-            var_dump($new_post);
+            $app->flash('addpostmsg', "Failed to submit the new post");
+            $app->redirect('useraddpost');
         }
     }else{
         $app->redirect('login');
