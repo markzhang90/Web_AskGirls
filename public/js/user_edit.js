@@ -18,7 +18,7 @@ $(document).ready(function () {
         }
 
 
-        if($('#confirm_pw').val().length != 0) {
+        if($('#confirm_pw').val().length > 0 || data.length > 0) {
 
             if (data != $('#confirm_pw').val()) {
                 $("#message_field").append("<div class=\"alert alert-warning alert-dismissable\">" +

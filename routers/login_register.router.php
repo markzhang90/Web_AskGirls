@@ -33,14 +33,23 @@ $app->post('/checkuser', function () use($app) {
 //    print_r($result);
 
     if($result != null){
-        $_SESSION['user_id'] = $result[0]['user_id'];
-        $_SESSION['user_name'] = $result[0]['user_name'];
-        $_SESSION['user_nickname'] = $result[0]['user_nickname'];
-        if (isset($_SESSION['user_id'])) {
-            $app->redirect('index/0/1');
+        $hash = $result[0]['user_passwd'];
+        if (password_verify($pw, $hash)) {
+            $_SESSION['user_id'] = $result[0]['user_id'];
+            $_SESSION['user_name'] = $result[0]['user_name'];
+            $_SESSION['user_nickname'] = $result[0]['user_nickname'];
+            if (isset($_SESSION['user_id'])) {
+                $app->redirect('index/0/1');
+            }
+        } else {
+            $error = "Password do not match" .$pw.$hash;
+            $app->flash('error', $error);
+
+            $app->redirect('login');
         }
+
     }else{
-        $error = "Username or Password not match.";
+        $error = "Account do not exist";
         $app->flash('error', $error);
 
         $app->redirect('login');

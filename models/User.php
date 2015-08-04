@@ -44,7 +44,7 @@ class User {
     public function getUserByLogin($username, $pass) {
 		$r = array();
 
-		$sql = "SELECT * FROM user WHERE user_name='$username' AND user_passwd='$pass'";
+		$sql = "SELECT * FROM user WHERE user_name='$username'";
 		$stmt = $this->core->dbh->prepare($sql);
 
 		if ($stmt->execute()) {
@@ -78,7 +78,7 @@ class User {
         $username = $data['user_name'];
         $gender = $data['gender'];
         $email = $data['email'];
-        $password = $data['password'];
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
 		try {
 			$sql = "INSERT INTO user (user_nickname, user_name, gender, user_passwd, user_email)
 					VALUES ('$nickname', '$username','$gender', '$password','$email')";
@@ -132,11 +132,22 @@ class User {
     }
 
 	// Update the data of an user
-	public function updateUser($data, $user_id) {
+	public function updateUser($data, $user_id, $isChangeImage) {
         $nickname = $data['user_nickname'];
-        $passwd = $data['user_passwd'];
+        $icon_image_string = "";
+        if($isChangeImage){
+            $image_link = "http://localhost/Web_AskGirls/user_avatar/".$data['file_name'];
+            $icon_image_string = " , icon_image='$image_link'";
+        }
+        $passwd_string = "";
+        if(sizeof($data['user_passwd']) > 0){
+            $passwd = password_hash($data['user_passwd'], PASSWORD_DEFAULT);
+            $passwd_string = " , user_passwd='$passwd'";
+        }
+        $sql = "UPDATE user SET user_nickname='$nickname'" . $passwd_string . $icon_image_string ."  WHERE user_id='$user_id'";
+//        return $sql;
         try {
-            $sql = "UPDATE user SET user_nickname='$nickname', user_passwd='$passwd' WHERE user_id='$user_id'";
+
             $stmt = $this->core->dbh->prepare($sql);
             if ( $stmt->execute()) {
                 return true;

@@ -35,6 +35,7 @@ $app->post('/useredit', function () use ($app) {
 //    var_dump($_FILES['foo']["size"]);
     if (isset($_SESSION['user_name'])) {
         $success_flag = True;
+        $image_flag = False;
         if ($_FILES['foo']["size"] != 0) {
             $storage = new Upload\Storage\FileSystem('../user_avatar/', true);
             $file = new \Upload\File('foo', $storage);
@@ -62,10 +63,10 @@ $app->post('/useredit', function () use ($app) {
 // Try to upload file
             if(sizeof($data) > 0){
                 try {
-//                    var_dump($data);
+//                   var_dump($data);
                     // Success!
                     $file->upload();
-
+                    $image_flag = True;
                 } catch (Exception $e) {
                     // Fail!
                     $success_flag = False;
@@ -79,13 +80,22 @@ $app->post('/useredit', function () use ($app) {
             }
 
         }
+        if($success_flag) {
+            $user = new models\User();
+            $post_data = $app->request()->post();
 
-        $user =  new models\User();
-        $data = $app->request()->post();
-        $result = $user->updateUser($data, $_SESSION['user_id']);
-        if($result && $success_flag){
-            $app->flash('correct', "Successfully Updated");
-            $app->redirect('useredit');
+//            var_dump($post_data);
+            if($image_flag){
+                $post_data['file_name'] =  $data['name'];
+            }else{
+                $post_data['file_name'] = null;
+            }
+            $result = $user->updateUser($post_data, $_SESSION['user_id'], $image_flag);
+            echo $result;
+            if ($result) {
+                $app->flash('correct', "Successfully Updated");
+                $app->redirect('useredit');
+            }
         }else{
             $app->flash('error', "Update Failed");
             $app->redirect('useredit');

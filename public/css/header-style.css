@@ -13,6 +13,10 @@
 	transition: height 0.3s;
 }
 
+.profile-avatar{
+	width: 60px;
+	height: 60px;
+}
 .cbp-af-header .cbp-af-inner {
 	width: 90%;
 	max-width: 69em;
