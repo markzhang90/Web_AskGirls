@@ -6,7 +6,7 @@ $(function () {
     $('#girlicon').click(function(){
         $('#girlicon').css({ opacity: 1 });
         $('#boyicon').css({ opacity: 0.2 });
-        $('#gender-pick').val(0);
+        $('#gender-pick').val(2);
         //alert($('#gender-pick').val());
     });
 

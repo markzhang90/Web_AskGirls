@@ -77,7 +77,7 @@ $app->post('/register', function () use($app) {
     if(empty($data['check_rule'])){
         $error_list['checkbox'] = "Please agree the statement by clicking the checkbox";
     }
-    if($data['gender'] == -1 || empty($data['gender'])){
+    if($data['gender'] == -1){
         $error_list['gender'] = "Please pick a gender";
     }
 
@@ -113,7 +113,7 @@ $app->post('/register', function () use($app) {
                 $app->redirect('index/0/1');
             }
         }
-        var_dump($data);
+//        var_dump($data);
     }else{
         $app->flash('register_error', $error_list);
         $app->flash('previous_data', $data);
