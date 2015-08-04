@@ -35,13 +35,15 @@
                     <strong>Username Gender Email</strong> can not be changed.
                 </div>
                 <div id="message_field">
-                    {% if error %}
+
+                    {% for error_item in error %}
                     <div class="alert alert-danger alert-dismissable">
                         <a class="panel-close close" data-dismiss="alert">×</a>
                         <i class="fa fa-coffee"></i>
-                        <strong>Oh snap! </strong>{{ error }}
+                        <strong>Oh snap! </strong>{{ error_item }}
                     </div>
-                    {% endif %}
+                    {% endfor %}
+
                     {% if success %}
                     <div class="alert alert-success alert-dismissable">
                         <a class="panel-close close" data-dismiss="alert">×</a>

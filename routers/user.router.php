@@ -34,8 +34,9 @@ $app->post('/useredit', function () use ($app) {
 
 //    var_dump($_FILES['foo']["size"]);
     if (isset($_SESSION['user_name'])) {
+        $success_flag = True;
         if ($_FILES['foo']["size"] != 0) {
-            $storage = new Upload\Storage\FileSystem('../image/', true);
+            $storage = new Upload\Storage\FileSystem('../user_avatar/', true);
             $file = new \Upload\File('foo', $storage);
 // Optionally you can rename the file on upload
             $new_filename = $_SESSION['user_name'];
@@ -47,10 +48,11 @@ $app->post('/useredit', function () use ($app) {
                 new \Upload\Validation\Mimetype(array('image/png', 'image/jpeg', 'image/jpg')),
                 //You can also add multi mimetype validation
                 // Ensure file is no larger than 5M (use "B", "K", M", or "G")
-                new Upload\Validation\Size('1M')
+                new Upload\Validation\Size('2M')
             ));
 // Access data about the file that has been uploaded
             $data = array(
+                'path'=> $file->getPath(),
                 'name' => $file->getNameWithExtension(),
                 'extension' => $file->getExtension(),
                 'mime' => $file->getMimetype(),
@@ -58,20 +60,30 @@ $app->post('/useredit', function () use ($app) {
 
             );
 // Try to upload file
-            try {
-//                var_dump($data);
-                // Success!
-                $file->upload();
-            } catch (\Exception $e) {
-                // Fail!
-                $errors = $file->getErrors();
-                var_dump($errors);
+            if(sizeof($data) > 0){
+                try {
+//                    var_dump($data);
+                    // Success!
+                    $file->upload();
+
+                } catch (Exception $e) {
+                    // Fail!
+                    $success_flag = False;
+                    $errors = $file->getErrors();
+                    var_dump($errors);
+                    $app->flash('img_error', $errors);
+                }
+            }else{
+                $success_flag = False;
+                $app->flash('img_error', "Image File is not Acceptable");
             }
+
         }
+
         $user =  new models\User();
         $data = $app->request()->post();
         $result = $user->updateUser($data, $_SESSION['user_id']);
-        if($result){
+        if($result && $success_flag){
             $app->flash('correct', "Successfully Updated");
             $app->redirect('useredit');
         }else{
@@ -89,16 +101,30 @@ $app->get('/useredit', function () use ($app) {
     if (isset($_SESSION['user_id'])) {
         $get_user = new models\User();
         $user_info = $get_user->getUserInfor($_SESSION['user_id'])[0];
+        $error_value = array();
         if (isset($_SESSION['slim.flash']['error'])) {
-            $error_value = $_SESSION['slim.flash']['error'];
+            $error = $_SESSION['slim.flash']['error'];
+            array_push($error_value, $error);
         }else{
-            $error_value = null;
+            $error = null;
         }
+
+        if (isset($_SESSION['slim.flash']['img_error'])) {
+            $img_errors = $_SESSION['slim.flash']['img_error'];
+            foreach ($img_errors as $value) {
+                array_push($error_value, $value);
+            }
+
+        }else{
+            $img_error = null;
+        }
+
         if (isset($_SESSION['slim.flash']['correct'])) {
             $correct = $_SESSION['slim.flash']['correct'];
         }else{
             $correct = null;
         }
+
         $app->render('user_edit.html', array('user' => $user_info, 'error'=>$error_value, 'success'=>$correct));
     } else {
         $app->redirect('login');

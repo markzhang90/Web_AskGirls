@@ -61,7 +61,7 @@ function getList(pageNum){
                     $.each(obj, function(index) {
                         $('#comments-area').append('<div class="media"> ' +
                             '<a class="pull-left" href="#">' +
-                            '<img class="media-object img-circle fixed-image" src="'+ obj[index].icon_image+ '" alt=""> </a> ' +
+                            '<img class="media-object img-circle fixed-user_avatar" src="'+ obj[index].icon_image+ '" alt=""> </a> ' +
                             '<div class="media-body fixed-left">' +
                             ' <h4 class="media-heading">'+obj[index].user_nickname+'   <small>     '+obj[index].time+'</small> ' +
                             '</h4>' +

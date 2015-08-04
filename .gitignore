@@ -58,7 +58,7 @@ config.php
 /public/index.php
 /tmp/*
 /logs/*
-/image
+/user_avatar
 
 # CakePHP 2
 
