@@ -42,7 +42,7 @@ $app->post('/checkuser', function () use($app) {
                 $app->redirect('index/0/1');
             }
         } else {
-            $error = "Password do not match" .$pw.$hash;
+            $error = "Password do not match";
             $app->flash('error', $error);
 
             $app->redirect('login');
