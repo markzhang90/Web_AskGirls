@@ -143,7 +143,7 @@ class User {
             $icon_image_string = " , icon_image='$image_link'";
         }
         $passwd_string = "";
-        if(sizeof($data['user_passwd']) > 0){
+        if(strlen($data['user_passwd']) > 0){
             $passwd = password_hash($data['user_passwd'], PASSWORD_DEFAULT);
             $passwd_string = " , user_passwd='$passwd'";
         }

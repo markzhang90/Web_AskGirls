@@ -118,6 +118,7 @@ $app->post('/register', function () use($app) {
         if($result != 0){
             $_SESSION['user_id'] = $result;
             $_SESSION['user_nickname'] = $data['nick_name'];
+            $_SESSION['user_name'] = $data['user_name'];
             if (isset($_SESSION['user_id'])) {
                 $app->redirect('index/0/1');
             }
