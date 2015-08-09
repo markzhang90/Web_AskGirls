@@ -8,7 +8,9 @@
 namespace models;
 use lib\Core;
 use PDO;
-
+use lib\Config;
+// <= php 5.4
+//require '../lib/password.php';
 class User {
 
 	protected $core;
@@ -136,6 +138,7 @@ class User {
         $nickname = $data['user_nickname'];
         $icon_image_string = "";
         if($isChangeImage){
+//            $host_name = Config::read('remote_server');
             $image_link = "http://localhost/Web_AskGirls/user_avatar/".$data['file_name'];
             $icon_image_string = " , icon_image='$image_link'";
         }
