@@ -67,7 +67,7 @@ function getList(pageNum){
                             ' <h4 class="media-heading">'+obj[index].user_nickname+'   <small>     '+obj[index].time+'</small> ' +
                             '</h4>' +
                             '<blockquote>' +
-                        '<div id="media-body-content">'+obj[index].content+'</div></blockquote></div></div>' +
+                        '<div id="media-body-content">'+nl2br(obj[index].content)+'</div></blockquote></div></div>' +
                         '<hr>'
                         );
                     });
@@ -86,4 +86,9 @@ function getList(pageNum){
 
 function AjaxFailed(result) {
     alert(result.status + ' ' + result.statusText);
+}
+
+function nl2br (str, is_xhtml) {
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
 }
